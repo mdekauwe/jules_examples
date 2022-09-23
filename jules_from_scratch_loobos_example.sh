@@ -6,7 +6,8 @@
 #
 # 23rd Sept 2022
 
-fcm make -j 2 -f etc/fcm-make/make.cfg --news
+module load jaspy
+
 
 #
 ## Build source
