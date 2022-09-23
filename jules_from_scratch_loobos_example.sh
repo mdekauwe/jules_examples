@@ -6,8 +6,13 @@
 #
 # 23rd Sept 2022
 
-module load jaspy
 
+module load jaspy
+module switch jaspy/3.8 jaspy/2.7
+
+jules_src="vn6.0_hj"
+namelist_dir="nlists"
+rose_suite="u-cg242"
 
 #
 ## Build source
@@ -15,30 +20,30 @@ module load jaspy
 
 cd /home/users/mdekauwe/JULES
 
-jules_src="vn6.0_hj"
-
 if [ ! -d "$jules_src" ]; then
-  fcm co https://code.metoffice.gov.uk/svn/jules/main/branches/dev/tobymarthews/vn6.0_hj vn6.0_hj
-  cd vn6.0_hj
+  #fcm co fcm:jules.x_tr@$jules_src $jules_src
+  fcm co https://code.metoffice.gov.uk/svn/jules/main/branches/dev/tobymarthews/vn6.0_hj $jules_src
+
+  cd $jules_src
+  
+  # Create normal JULES executable without NetCDF using the GFortran compiler 
   fcm make -j 2 -f etc/fcm-make/make.cfg --new
 fi
 
 #
 ## Grab namelists
-#
-
-x
+#s
 
 cd ~/roses
 
-namelist_dir="nlists"
+
 if [ ! -d "$namelist_dir" ]; then
   mkdir $namelist_dir
 fi
 
 cd $namelist_dir
 rm *
-rose app-run -i -C ~/roses/u-cg242/app/jules
+rose app-run -i -C ~/roses/$rose_suite/app/jules
 
 #
 ## Run JULES
