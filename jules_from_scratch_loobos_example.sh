@@ -12,7 +12,7 @@ module load jaspy/3.7/r20210320
 jules_src="vn6.0_hj"
 namelist_dir="nlists"
 rose_suite="u-cg242"
-s
+
 #
 ## Build source
 #
